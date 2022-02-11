@@ -1,14 +1,19 @@
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import MainLayout from "./layout/main/MainLayout";
+import Home from "./pages/home/Home";
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
