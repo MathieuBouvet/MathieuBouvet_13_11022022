@@ -1,3 +1,5 @@
+import FRONT_ROUTES from "../../config/frontRoutes";
+
 import { Link } from "react-router-dom";
 
 import "./topBar.css";
@@ -5,7 +7,7 @@ import "./topBar.css";
 const TopBar = () => {
   return (
     <nav className="main-nav">
-      <Link className="main-nav-logo" to="/">
+      <Link className="main-nav-logo" to={FRONT_ROUTES.home}>
         <img
           className="main-nav-logo-image"
           src="/img/argentBankLogo.png"
@@ -14,7 +16,7 @@ const TopBar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <Link className="main-nav-item" to="./login">
+        <Link className="main-nav-item" to={FRONT_ROUTES.login}>
           <i className="fa fa-user-circle"></i> Sign In
         </Link>
       </div>
