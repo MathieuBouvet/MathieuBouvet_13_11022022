@@ -1,10 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 import FRONT_ROUTES from "../../config/frontRoutes";
+
+import authenticator from "../../services/authenticator";
 
 import { Link } from "react-router-dom";
 
 import "./topBar.css";
 
 const TopBar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to={FRONT_ROUTES.home}>
@@ -16,9 +21,22 @@ const TopBar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <Link className="main-nav-item" to={FRONT_ROUTES.login}>
-          <i className="fa fa-user-circle"></i> Sign In
-        </Link>
+        {!authenticator.isLoggedIn() ? (
+          <Link className="main-nav-item" to={FRONT_ROUTES.login}>
+            <i className="fa fa-user-circle"></i> Sign In
+          </Link>
+        ) : (
+          <button
+            className="main-nav-item logout"
+            onClick={() => {
+              authenticator.logout();
+              navigate(FRONT_ROUTES.home);
+            }}
+          >
+            <i className="fa fa-sign-out"></i>
+            {" "}Sign Out
+          </button>
+        )}
       </div>
     </nav>
   );
