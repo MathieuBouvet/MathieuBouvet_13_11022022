@@ -46,3 +46,8 @@
   padding: 5px;
   font-size: 1.2rem;
 }
+
+.login-error {
+  color: lightcoral;
+  font-size: 0.9rem;
+}
