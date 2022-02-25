@@ -40,12 +40,14 @@ const EditProfile = ({
         value={firstName}
         onChange={e => setFirstName(e.target.value)}
         className="profile-form-input profile-form-left-column"
+        placeholder="first name"
       ></input>
       <input
         type="text"
         value={lastName}
         onChange={e => setLastName(e.target.value)}
         className="profile-form-input .profile-form-right-column"
+        placeholder="last name"
       ></input>
       <button
         type="submit"

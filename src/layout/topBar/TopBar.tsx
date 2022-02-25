@@ -11,6 +11,13 @@ import useRequestProfile from "../../hooks/useRequestProfile";
 
 import "./topBar.css";
 
+function getValidName(name: string | undefined): string {
+  if (name === undefined || name.length === 0) {
+    return "my profile";
+  }
+  return name;
+}
+
 const TopBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +44,7 @@ const TopBar = () => {
           <>
             <Link className="main-nav-item" to={FRONT_ROUTES.profile}>
               <i className="fa fa-user-circle"></i>
-              {` ${userFirstName}`}
+              {` ${getValidName(userFirstName)}`}
             </Link>
             <button
               className="main-nav-item logout"

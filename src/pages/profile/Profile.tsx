@@ -3,10 +3,23 @@ import { useState } from "react";
 import { useAppSelector } from "../../store";
 import useRequestProfile from "../../hooks/useRequestProfile";
 
+import { UserProfile } from "../../slices/profileSlice";
+
 import EditProfile from "./EditProfile";
 import Account from "../../components/account/Account";
 
 import "./profile.css";
+
+function getValidName(profile: UserProfile | null): string {
+  if (profile === null) {
+    return getValidName({ lastName: "", firstName: "" });
+  }
+  const { firstName, lastName } = profile;
+  const validFirstName = firstName.length !== 0 ? firstName : "Mr.";
+  const validLastName =
+    lastName.length === 0 && firstName.length === 0 ? "Anonymous" : lastName;
+  return `${validFirstName} ${validLastName}`;
+}
 
 const Profile = () => {
   useRequestProfile();
@@ -30,7 +43,7 @@ const Profile = () => {
               onStopEdition={() => setProfileView("display")}
             />
           ) : (
-            `${profile?.firstName} ${profile?.lastName}`
+            getValidName(profile)
           )}
         </h1>
         {profileView === "display" && (

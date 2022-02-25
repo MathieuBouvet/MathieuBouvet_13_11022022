@@ -6,7 +6,7 @@ import { ProfileResponse } from "../config/api/apiResponses";
 
 import apiClient from "../services/apiClient";
 
-type UserProfile = {
+export type UserProfile = {
   firstName: string;
   lastName: string;
 };
