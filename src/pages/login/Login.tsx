@@ -15,9 +15,12 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [loginHasError, setLoginHasError] = useState(false);
 
+  const [isLogginIn, setIsLogginIn] = useState(false);
+
   function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoginHasError(false);
+    setIsLogginIn(true);
     authenticator.login({
       email,
       password,
@@ -27,6 +30,7 @@ const Login = () => {
       },
       onLoginFailed: () => {
         setLoginHasError(true);
+        setIsLogginIn(false);
       },
     });
   }
@@ -63,7 +67,10 @@ const Login = () => {
             />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <button className="sign-in-button">
+            {isLogginIn && <i className="fa fa-spinner fa-spin spin-icon"/>}
+            Sign In
+          </button>
           {loginHasError && (
             <p className="login-error">
               Connexion impossible avec ces identifiants
