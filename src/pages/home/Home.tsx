@@ -1,15 +1,6 @@
-import { Navigate } from "react-router-dom";
-
-import FRONT_ROUTES from "../../config/frontRoutes";
-
-import authenticator from "../../services/authenticator";
-
 import "./home.css";
 
 const Home = () => {
-  if (authenticator.isLoggedIn()) {
-    return <Navigate to={FRONT_ROUTES.profile} />;
-  }
   return (
     <main>
       <div className="hero">
