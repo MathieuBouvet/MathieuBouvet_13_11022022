@@ -1,15 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useAppSelector } from "../../store";
+import { useDispatch } from "react-redux";
 
 import FRONT_ROUTES from "../../config/frontRoutes";
 
 import authenticator from "../../services/authenticator";
 
-import { Link } from "react-router-dom";
+import { resetProfile } from "../../slices/profileSlice";
+import useRequestProfile from "../../hooks/useRequestProfile";
 
 import "./topBar.css";
 
 const TopBar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  useRequestProfile();
+
+  const userFirstName = useAppSelector(state => state.profile.data?.firstName);
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to={FRONT_ROUTES.home}>
@@ -26,16 +34,22 @@ const TopBar = () => {
             <i className="fa fa-user-circle"></i> Sign In
           </Link>
         ) : (
-          <button
-            className="main-nav-item logout"
-            onClick={() => {
-              authenticator.logout();
-              navigate(FRONT_ROUTES.home);
-            }}
-          >
-            <i className="fa fa-sign-out"></i>
-            {" "}Sign Out
-          </button>
+          <>
+            <Link className="main-nav-item" to={FRONT_ROUTES.profile}>
+              <i className="fa fa-user-circle"></i>
+              {` ${userFirstName}`}
+            </Link>
+            <button
+              className="main-nav-item logout"
+              onClick={() => {
+                authenticator.logout();
+                dispatch(resetProfile());
+                navigate(FRONT_ROUTES.home);
+              }}
+            >
+              <i className="fa fa-sign-out"></i> Sign Out
+            </button>
+          </>
         )}
       </div>
     </nav>

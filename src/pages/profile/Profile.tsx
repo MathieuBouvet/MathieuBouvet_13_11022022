@@ -1,15 +1,21 @@
 import Account from "../../components/account/Account";
+import useRequestProfile from "../../hooks/useRequestProfile";
+import { useAppSelector } from "../../store";
 
 import "./profile.css";
 
 const Profile = () => {
+  useRequestProfile();
+
+  const profile = useAppSelector(state => state.profile.data);
+
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {`${profile?.firstName} ${profile?.lastName}`}
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>

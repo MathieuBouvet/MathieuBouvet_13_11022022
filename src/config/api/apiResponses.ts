@@ -7,3 +7,9 @@ export type ApiResponse<T> = {
 export type LoginResponse = {
   token: string;
 };
+
+export type ProfileResponse = {
+  firstName: string;
+  lastName: string;
+
+}
