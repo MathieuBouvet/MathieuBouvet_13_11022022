@@ -1,6 +1,10 @@
-import Account from "../../components/account/Account";
-import useRequestProfile from "../../hooks/useRequestProfile";
+import { useState } from "react";
+
 import { useAppSelector } from "../../store";
+import useRequestProfile from "../../hooks/useRequestProfile";
+
+import EditProfile from "./EditProfile";
+import Account from "../../components/account/Account";
 
 import "./profile.css";
 
@@ -9,15 +13,34 @@ const Profile = () => {
 
   const profile = useAppSelector(state => state.profile.data);
 
+  const [profileView, setProfileView] = useState<"display" | "edition">(
+    "display"
+  );
+
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          {`${profile?.firstName} ${profile?.lastName}`}
+          {profileView === "edition" ? (
+            <EditProfile
+              initialFirstName={profile?.firstName ?? ""}
+              initalLastName={profile?.lastName ?? ""}
+              onStopEdition={() => setProfileView("display")}
+            />
+          ) : (
+            `${profile?.firstName} ${profile?.lastName}`
+          )}
         </h1>
-        <button className="edit-button">Edit Name</button>
+        {profileView === "display" && (
+          <button
+            className="edit-button"
+            onClick={() => setProfileView("edition")}
+          >
+            Edit Name
+          </button>
+        )}
       </div>
       <h2 className="sr-only">Accounts</h2>
       <Account

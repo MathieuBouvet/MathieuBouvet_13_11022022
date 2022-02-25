@@ -13,13 +13,17 @@ type UserProfile = {
 
 export type ProfileState = {
   isFetching: boolean;
-  hasError: boolean;
+  hasFetchError: boolean;
+  isUpdating: boolean;
+  hasUpdateError: boolean;
   data: UserProfile | null;
 };
 
 const initialState: ProfileState = {
   isFetching: false,
-  hasError: false,
+  hasFetchError: false,
+  isUpdating: false,
+  hasUpdateError: false,
   data: null,
 };
 
@@ -29,21 +33,31 @@ export const profileSlice = createSlice({
   reducers: {
     setProfile: (state, action: PayloadAction<UserProfile>) => {
       state.isFetching = false;
-      state.hasError = false;
+      state.hasFetchError = false;
+      state.isUpdating = false;
+      state.hasUpdateError = false;
       state.data = action.payload;
     },
-    errorOccured: state => {
+    fetchErrorOccured: state => {
       state.isFetching = false;
-      state.hasError = true;
+      state.hasFetchError = true;
     },
     resetProfile: state => {
       state.data = initialState.data;
-      state.hasError = initialState.hasError;
+      state.hasFetchError = initialState.hasFetchError;
       state.isFetching = initialState.isFetching;
     },
     fetchStarted: state => {
-      state.hasError = false;
+      state.hasFetchError = false;
       state.isFetching = true;
+    },
+    updateStarted: state => {
+      state.isUpdating = true;
+      state.hasUpdateError = false;
+    },
+    updateErrorOccured: state => {
+      state.isUpdating = false;
+      state.hasUpdateError = true;
     },
   },
 });
@@ -61,13 +75,36 @@ export function profileRequested() {
         const { firstName, lastName } = response.body;
         dispatch(setProfile({ firstName, lastName }));
       } catch (err) {
-        dispatch(errorOccured());
+        dispatch(fetchErrorOccured());
       }
     }
   };
 }
 
-export const { setProfile, errorOccured, resetProfile, fetchStarted } =
-  profileSlice.actions;
+export function profileUpdateRequested(profile: UserProfile) {
+  return async (dispatch: AppDispatch) => {
+    dispatch(updateStarted());
+    try {
+      const response = await apiClient.put<ProfileResponse>(
+        profileRoute(),
+        profile
+      );
+      const { firstName, lastName } = response.body;
+      dispatch(setProfile({ firstName, lastName }));
+    } catch (err) {
+      dispatch(updateErrorOccured());
+      throw err;
+    }
+  };
+}
+
+export const {
+  setProfile,
+  fetchErrorOccured,
+  resetProfile,
+  fetchStarted,
+  updateErrorOccured,
+  updateStarted,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

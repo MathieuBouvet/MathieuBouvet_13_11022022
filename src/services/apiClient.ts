@@ -45,9 +45,18 @@ async function post<T = void>(
   return request<T>("POST", url, body, withCredentials);
 }
 
+async function put<T = void>(
+  url: string,
+  body: any,
+  withCredentials = true
+): Promise<ApiResponse<T>> {
+  return request<T>("PUT", url, body, withCredentials);
+}
+
 const apiClient = {
   get,
   post,
+  put,
 };
 
 export default apiClient;

@@ -10,3 +10,44 @@
   color: #fff;
   margin-bottom: 2rem;
 }
+
+.edit-profile-form {
+  display: grid;
+  margin-top: 18px;
+  row-gap: 7px;
+  column-gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.profile-form-input {
+  max-width: 150px;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.profile-form-button {
+  width: 100px;
+}
+
+.profile-form-left-column {
+  justify-self: right;
+}
+
+.profile-form-right-column {
+  justify-self: left;
+}
+
+.profile-form-message {
+  grid-column: span 2;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.profile-form-message.error {
+  color: lightcoral;
+}
+
+.profile-form-message .spin-icon {
+  margin-right: 7px;
+}
