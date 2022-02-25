@@ -51,14 +51,14 @@ const EditProfile = ({
         type="submit"
         className="profile-form-button save profile-form-left-column"
       >
-        save
+        Save
       </button>
       <button
         onClick={onStopEdition}
         type="button"
-        className="profile-form-button cancel .profile-form-right-column"
+        className="profile-form-button cancel profile-form-right-column"
       >
-        cancel
+        Cancel
       </button>
       {isEditingProfile && (
         <p className="profile-form-message">

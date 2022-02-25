@@ -8,12 +8,13 @@
 
 .header {
   color: #fff;
+  height: 151px;
   margin-bottom: 2rem;
 }
 
 .edit-profile-form {
   display: grid;
-  margin-top: 18px;
+  margin-top: 11px;
   row-gap: 7px;
   column-gap: 15px;
   grid-template-columns: 1fr 1fr;
@@ -24,10 +25,6 @@
   max-width: 150px;
   padding: 5px;
   font-size: 1.2rem;
-}
-
-.profile-form-button {
-  width: 100px;
 }
 
 .profile-form-left-column {
@@ -42,6 +39,7 @@
   grid-column: span 2;
   text-align: center;
   font-size: 1rem;
+  margin: 5px;
 }
 
 .profile-form-message.error {
@@ -50,4 +48,22 @@
 
 .profile-form-message .spin-icon {
   margin-right: 7px;
+}
+
+.profile-form-button {
+  width: 100px;
+  padding: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.profile-form-button.cancel {
+  border-color: lightcoral;
+  background-color: lightcoral;
+}
+
+.profile-form-button.save {
+  border-color: #00bc77;
+  background-color: #00bc77;
 }
